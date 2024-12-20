@@ -4,14 +4,17 @@ use App\Http\Controllers\{
     BuildConsConstController,
     BuildRelatedCostController,
     RevaluataionController,
-    ValuationController
+    ValuationController,
+    LoginController
 };
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::middleware('auth:api')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+});
 
 
 // Assets Resource Routes
@@ -28,3 +31,4 @@ Route::resource('build-related-costs', BuildRelatedCostController::class);
 
 // Revaluations Resource Routes
 Route::resource('revaluations', RevaluataionController::class);
+Route::resource('login', LoginController::class)->only(['store', 'destroy']);
