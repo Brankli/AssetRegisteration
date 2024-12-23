@@ -6,11 +6,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens; 
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory,HasApiTokens, Notifiable;
+    const ROLE_ADMIN = 'admin';
+    const ROLE_VALUATOR = 'valuator';
+    const ROLE_EXTERNAL = 'external';
 
     /**
      * The attributes that are mass assignable.
@@ -53,5 +57,9 @@ class User extends Authenticatable
      public function valuations()
      {
          return $this->hasMany(Valuation::class, 'valuator_id');
+     }
+     public function roles()
+     {
+         return $this->belongsToMany(Role::class);
      }
 }
