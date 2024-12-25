@@ -20,7 +20,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = ['name', 'email', 'password', 'role',];
+    protected $fillable = ['name', 'email', 'password', 'role','cv',];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -34,9 +34,11 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array{
-        return ['email_verified_at' => 'datetime','password' => 'hashed',];}
-     // A user can have many assets
+    protected $casts = [
+    'email_verified_at' => 'datetime',
+    'password' => 'hashed',
+];
+
      public function assets() {return $this->hasMany(Asset::class);}
      // A user can be a valuator for many valuations
      public function valuations(){return $this->hasMany(Valuation::class, 'valuator_id');}

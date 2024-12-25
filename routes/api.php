@@ -16,7 +16,6 @@ Route::middleware('auth:api')->group(function () {
     });
 });
 
-
 // Assets Resource Routes
 Route::resource('assets', AssetController::class);
 
@@ -32,3 +31,4 @@ Route::resource('build-related-costs', BuildRelatedCostController::class);
 // Revaluations Resource Routes
 Route::resource('revaluations', RevaluataionController::class);
 Route::resource('login', LoginController::class)->only(['store', 'destroy']);
+Route::post('register', [LoginController::class, 'register'])->name('register');
